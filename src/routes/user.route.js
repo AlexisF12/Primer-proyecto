@@ -1,11 +1,12 @@
 const { Router } = require('express');
 const router = Router();
 const { userController } = require('../controllers');
-const { userMiddleware } = require ("../middlewares")
+const { genericMiddleware } = require ("../middlewares")
+const { User } = require('../db/models');
 
 router.get("/", userController.getUser);
-router.get("/:id", userMiddleware.existsUser, userController.getUserById);
+router.get("/:id", genericMiddleware.validId, genericMiddleware.existsModelById(User), userController.getUserById);
 router.post("/", userController.createUser);
-router.delete("/:id", userMiddleware.existsUser, userController.deleteById)
+router.delete("/:id", genericMiddleware.validId, genericMiddleware.existsModelById(User), userController.deleteById);
 
 module.exports = router;

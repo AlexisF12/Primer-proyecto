@@ -1,4 +1,2 @@
-const generic = require("./generic.middleware");
-const userMiddleware = require("./user.middleware");
-
-module.exports = { generic, userMiddleware };
+const genericMiddleware = require("./generic.middleware");
+module.exports = { genericMiddleware };

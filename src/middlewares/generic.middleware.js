@@ -2,5 +2,28 @@ const logRequest = (req, _, next) => {
     console.log({ method: req.method, url: req.url, fechaHora: new Date() });
     next();
   };
-  
-  module.exports = { logRequest };
+
+  const existsModelById = (modelo) => {
+    return async (req, res, next) => {
+      const id = req.params.id;
+      const data = await modelo.findByPk(id);
+      if (!data) {
+        return res
+          .status(404)
+          .json({ message: `El id ${id} no se encuentra registrado` });
+      }
+      next();
+    };
+  };
+
+const validId = (req, res, next) => {
+    const id = req.params.id;
+    if (id <= 0) {
+      return res
+        .status(400)
+        .json({ message: "Bad Request: No pueden ser un id negativo" });
+    }
+    next();
+  };
+
+module.exports = { logRequest, existsModelById, validId };
