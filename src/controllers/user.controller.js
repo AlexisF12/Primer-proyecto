@@ -5,7 +5,7 @@ const getUser = async (req, res) => {
   res.status(200).json(data); // Devuelve los usuarios en formato JSON
 };
 const getUserById = async (req, res) => {
-  const data = await User.findByPK(req.params.id); // Obtén usuario por id
+  const data = await User.findByPk(req.params.id); // Obtén usuario por id
   if (data)  res.status(200).json(data); // Devuelve los usuarios en formato JSON
   else res.status(404).json({message: "Not Found"});
 };
@@ -20,7 +20,7 @@ const createUser = async (req, res) => {
 };
 
   const deleteById = async (req, res) => {
-    const data = await User.findByPK(req.params.id);
+    const data = await User.findByPk(req.params.id);
     if (data) {
       const removed = await data.destroy()
       res.status(200).json(removed);
