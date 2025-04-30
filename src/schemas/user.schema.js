@@ -1,6 +1,6 @@
 const Joi = require('joi');
 
-const schema = Joi.object({
+const UserSchema = Joi.object({
   userName: Joi.string().required().min(8).max(12).messages({
     "any.required": "username es obligatorio",
     "string.min": "username debe tener como mínimo {#limit} caracteres",
@@ -14,4 +14,4 @@ const schema = Joi.object({
   }),
 });
 
-module.exports = schema;
+module.exports = UserSchema;
