@@ -26,4 +26,19 @@ const validId = (req, res, next) => {
     next();
   };
 
-module.exports = { logRequest, existsModelById, validId };
+  const schemaValidator = (schema) => {
+    return (req, res, next) => {
+      const { error } = schema.validate(req.body, { abortEarly: false });
+      if (error) {
+        const errores = error.details.map((e) => ({
+          atributo: e.path[0],
+          mensaje: e.message,
+          tipoError: e.type,
+        }));
+        return res.status(400).json({ errores });
+      }
+      next();
+    };
+  };
+
+module.exports = { logRequest, existsModelById, validId, schemaValidator };
